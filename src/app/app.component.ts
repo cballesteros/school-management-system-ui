@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'Registro de notas';
-  links = []
+  title = 'Dashboard';
+  main = true;
 }

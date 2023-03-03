@@ -1,44 +1,49 @@
-<mat-toolbar>
-  <button mat-icon-button (click)="drawer.toggle()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>{{ title }}</span>
-  <span class="spacer"></span>
-  <button mat-icon-button>
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button>
-    <mat-icon>share</mat-icon>
-  </button>
-</mat-toolbar>
+<ng-container *ngIf="!main">
+  <router-outlet></router-outlet>
+</ng-container>
 
-<mat-drawer-container class="drawer-container" autosize>
-  <mat-drawer #drawer class="drawer-sidenav" mode="side" [opened]="true">
-    <mat-nav-list>
-      <mat-list-item>
-        <button mat-icon-button matListItemMeta>
-          <mat-icon>
-            <span class="material-icons-outlined">
-              group
-            </span>
-          </mat-icon>
+<ng-container *ngIf="main">
+  <mat-drawer-container class="drawer-container" autosize>
+    <mat-drawer #drawer class="drawer-sidenav" mode="side" [opened]="true">
+      <mat-nav-list>
+        <div mat-subheader>SAE</div>
+        <mat-list-item>
+          <button mat-icon-button matListItemMeta>
+            <mat-icon>
+              <span class="material-icons-outlined">
+                group
+              </span>
+            </mat-icon>
+          </button>
+          <a matListItemTitle href="...">Usuarios</a>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-icon-button matListItemMeta>
+            <mat-icon>
+              <span class="material-icons-outlined">
+                library_books
+              </span>
+            </mat-icon>
+          </button>
+          <a matListItemTitle href="...">Cursos</a>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-drawer>
+    <div class="drawer-sidenav-content">
+      <mat-toolbar>
+        <button mat-icon-button (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
         </button>
-        <a matListItemTitle href="...">Usuarios</a>
-      </mat-list-item>
-      <mat-list-item>
-        <button mat-icon-button matListItemMeta>
-          <mat-icon>
-            <span class="material-icons-outlined">
-              library_books
-            </span>
-          </mat-icon>
+        <span>{{ title }}</span>
+        <span class="spacer"></span>
+        <button mat-icon-button>
+          <mat-icon>favorite</mat-icon>
         </button>
-        <a matListItemTitle href="...">Cursos</a>
-      </mat-list-item>
-    </mat-nav-list>
-  </mat-drawer>
-  <div class="drawer-sidenav-content">
-    <router-outlet></router-outlet>
-  </div>
-
-</mat-drawer-container>
+        <button mat-icon-button>
+          <mat-icon>share</mat-icon>
+        </button>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-container>
+</ng-container>
