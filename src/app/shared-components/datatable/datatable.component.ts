@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Injectable, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Injectable, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -35,10 +35,11 @@ export class MyCustomPaginatorIntl implements MatPaginatorIntl {
   styleUrls: ['./datatable.component.sass'],
   providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
 })
-export class DatatableComponent implements AfterViewInit, OnInit {
+export class DatatableComponent implements AfterViewInit, OnInit, OnChanges {
 
   displayedColumns!: string[]
 
+  @Input() searchValue = ''
   @Input() pageSize = 10
   @Input() pageSizeOptions = [10, 25, 50, 100]
   @Input() columnDefinition!: ViewConfig[]
@@ -48,9 +49,13 @@ export class DatatableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private cdr: ChangeDetectorRef) { }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    this.applyFilter(changes['searchValue'].currentValue)
+  }
 
   ngOnInit(): void {
-    this.displayedColumns = this.columnDefinition.map(c => c.columnDef)    
+    this.displayedColumns = this.columnDefinition.map(c => c.columnDef)
     this.cdr.detectChanges();
   }
 
@@ -61,8 +66,7 @@ export class DatatableComponent implements AfterViewInit, OnInit {
     }, 1000);
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {

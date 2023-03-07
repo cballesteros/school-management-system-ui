@@ -1,1 +1,6 @@
-<app-datatable [columnDefinition]="columnDefinition" [dataSource]="dataSource"></app-datatable>
+<app-filter-panel (searchEvent)="onSearch($event)"></app-filter-panel>
+<app-datatable
+    [searchValue]="searchValue"
+    [columnDefinition]="columnDefinition"
+    [dataSource]="dataSource">
+</app-datatable>

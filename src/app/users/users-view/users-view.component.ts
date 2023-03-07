@@ -12,6 +12,7 @@ import { UserViewConfig } from './users-view.config';
 })
 export class UsersViewComponent implements OnInit {
 
+  searchValue!: string
   columnDefinition: ViewConfig[]
   dataSource!: MatTableDataSource<UserData>
 
@@ -23,5 +24,9 @@ export class UsersViewComponent implements OnInit {
     this.userService.getAllUsers().subscribe((users: UserData[]) => {
       this.dataSource = new MatTableDataSource(users);
     })
+  }
+
+  onSearch(value: string) {
+    this.searchValue = value
   }
 }
