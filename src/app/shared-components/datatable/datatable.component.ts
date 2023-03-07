@@ -50,13 +50,15 @@ export class DatatableComponent implements AfterViewInit, OnInit {
   constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.cdr.detectChanges();
     this.displayedColumns = this.columnDefinition.map(c => c.columnDef)    
+    this.cdr.detectChanges();
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;      
+    }, 1000);
   }
 
   applyFilter(event: Event) {

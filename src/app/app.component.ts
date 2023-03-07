@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { MENU_ITEMS } from './common/constants';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -8,12 +10,30 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
   
-  title = 'Dashboard'
+  title = 'Inicio'
   main = true
+  drawerMenu: DrawerMenu[] = MENU_ITEMS
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.main = this.authService.loggedIn
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.title = MENU_ITEMS.find(
+          item => event.url.includes(item.path))?.label || 'Inicio'
+      }
+    });
   }
+
+  selectedMenu(menu: DrawerMenu) {
+    this.title = menu.label
+    this.router.navigateByUrl(menu.path)
+  }
+}
+
+export interface DrawerMenu {
+  icon: string
+  path: string
+  label: string
 }
