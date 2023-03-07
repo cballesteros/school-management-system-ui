@@ -9,13 +9,13 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './services/auth.service';
 import { UsersModule } from './users/users.module';
-import { MaterialModule } from './material/material.module';
+import { MaterialModule } from './shared-modules/material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
