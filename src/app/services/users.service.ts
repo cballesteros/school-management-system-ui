@@ -33,7 +33,7 @@ export class UserService {
   }
 
   deleteUser(id: string): Observable<{}> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${this.apiUrl}?userId=${id}`;
     return this.http.delete(url);
   }
 
