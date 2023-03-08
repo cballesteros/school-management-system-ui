@@ -1,9 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Injectable, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Injectable, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject } from 'rxjs';
-import { ViewConfig } from 'src/app/common/view.config';
+import { DatatableAction } from '../../../app/common/constants';
+import { ViewConfig } from '../../../app/common/view.config';
 
 @Injectable()
 export class MyCustomPaginatorIntl implements MatPaginatorIntl {
@@ -44,6 +45,7 @@ export class DatatableComponent implements AfterViewInit, OnInit, OnChanges {
   @Input() pageSizeOptions = [10, 25, 50, 100]
   @Input() columnDefinition!: ViewConfig[]
   @Input() dataSource!: MatTableDataSource<any>;
+  @Output() actionEvent = new EventEmitter<DatatableAction>
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -51,7 +53,10 @@ export class DatatableComponent implements AfterViewInit, OnInit, OnChanges {
   constructor(private cdr: ChangeDetectorRef) { }
   
   ngOnChanges(changes: SimpleChanges): void {
-    this.applyFilter(changes['searchValue'].currentValue)
+    const valueToSearch = changes['searchValue']?.currentValue
+    if (valueToSearch) {      
+      this.applyFilter(valueToSearch)
+    }
   }
 
   ngOnInit(): void {
@@ -76,5 +81,13 @@ export class DatatableComponent implements AfterViewInit, OnInit, OnChanges {
 
   handlePageEvent(e: PageEvent) {
     console.log(e);    
+  }
+
+  onActionEvent(eventData: any, data: any) {
+    const action: DatatableAction = {
+      ...eventData,
+      data
+    }
+    this.actionEvent.emit(action)
   }
 }

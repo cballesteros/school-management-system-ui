@@ -1,6 +1,11 @@
-<app-filter-panel (searchEvent)="onSearch($event)"></app-filter-panel>
+<div class="container">
+    <app-filter-panel (searchEvent)="onSearch($event)"></app-filter-panel>
+    <button mat-flat-button color="primary" (click)="newUser()">Nuevo usuario</button>
+</div>
 <app-datatable
     [searchValue]="searchValue"
     [columnDefinition]="columnDefinition"
-    [dataSource]="dataSource">
+    [dataSource]="dataSource"
+    (actionEvent)="onActionEvent($event)"
+>
 </app-datatable>

@@ -21,4 +21,13 @@ export const UserViewConfig: ViewConfig[] = [
         columnDef: 'email',
         header: 'Correo'
     },
+    {
+        columnDef: 'actions',
+        header: 'Acciones',
+        actions: [
+            {icon: 'visibility', type: 'view', columnId: 'id'},
+            {icon: 'edit', type: 'edit', columnId: 'id'},
+            {icon: 'delete', type: 'delete', columnId: 'id'},
+        ]
+    },
 ]

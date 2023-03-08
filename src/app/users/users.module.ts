@@ -5,11 +5,13 @@ import { UsersRoutingModule } from './users-routing.module';
 import { UsersViewComponent } from './users-view/users-view.component';
 import { MaterialModule } from '../shared-modules/material.module';
 import { CommonComponentsModule } from '../shared-modules/common-components.module';
+import { UsersSaveComponent } from './users-save/users-save.component';
 
 
 @NgModule({
   declarations: [
-    UsersViewComponent
+    UsersViewComponent,
+    UsersSaveComponent
   ],
   imports: [
     CommonModule,

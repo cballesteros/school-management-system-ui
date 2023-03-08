@@ -2,7 +2,16 @@
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container *ngFor="let column of columnDefinition" matColumnDef="{{ column.columnDef }}">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.header }}</th>
-      <td mat-cell *matCellDef="let row"> {{ row[column.columnDef] }} </td>
+      <td mat-cell *matCellDef="let row">
+        {{ row[column.columnDef] }}
+        <ng-container *ngIf="column.columnDef === 'actions'">
+          <ng-container *ngFor="let action of column.actions">
+            <span class="material-icons" (click)="onActionEvent(action, row[action.columnId])">
+              {{action.icon}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -10,7 +19,9 @@
 
     <!-- Row shown when there is no matching data. -->
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">Ningún resultado coincide con la búsqueda "{{ searchValue }}"</td>
+      <td class="mat-cell" colspan="4">
+        Ningún resultado coincide con la búsqueda "{{ searchValue }}"
+      </td>
     </tr>
   </table>
 

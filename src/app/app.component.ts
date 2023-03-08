@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { MENU_ITEMS } from './common/constants';
+import { DrawerMenu, MENU_ITEMS } from './common/constants';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -23,17 +23,11 @@ export class AppComponent implements OnInit {
         this.title = MENU_ITEMS.find(
           item => event.url.includes(item.path))?.label || 'Inicio'
       }
-    });
+    })
   }
 
   selectedMenu(menu: DrawerMenu) {
     this.title = menu.label
     this.router.navigateByUrl(menu.path)
   }
-}
-
-export interface DrawerMenu {
-  icon: string
-  path: string
-  label: string
 }

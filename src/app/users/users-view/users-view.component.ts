@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { DatatableAction } from 'src/app/common/constants';
 import { UserService } from 'src/app/services/users.service';
 import { ViewConfig } from '../../common/view.config';
 import { UserData } from '../user.model';
@@ -16,7 +18,7 @@ export class UsersViewComponent implements OnInit {
   columnDefinition: ViewConfig[]
   dataSource!: MatTableDataSource<UserData>
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     this.columnDefinition = UserViewConfig
   }
   
@@ -28,5 +30,20 @@ export class UsersViewComponent implements OnInit {
 
   onSearch(value: string) {
     this.searchValue = value
+  }
+
+  newUser() {
+    this.router.navigateByUrl('/users/save')
+  }
+
+  onActionEvent(event: DatatableAction) {
+    console.log(event)    
+    switch (event.type) {
+      case 'edit':
+        this.router.navigateByUrl(`/users/save/${event.data}`)
+        break;    
+      default:
+        break;
+    }
   }
 }

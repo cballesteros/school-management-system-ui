@@ -1,0 +1,72 @@
+<div class="container">
+    <mat-progress-bar *ngIf="!userForm" mode="indeterminate"></mat-progress-bar>
+    <form *ngIf="userForm" [formGroup]="userForm">
+        <h2>{{userId ? 'Editar Usuario' : 'Crear Usuario'}}</h2>
+        <div class="group-item">
+            <mat-form-field>
+                <mat-label>Tipo de Identificación</mat-label>
+                <mat-select formControlName="idType">
+                  <mat-option *ngFor="let option of idTypeOptions" value="{{option.value}}">
+                    {{ option.viewValue }}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Número</mat-label>
+                <input matInput formControlName="idNumber">
+            </mat-form-field>        
+        </div>
+        <div class="group-item">            
+            <mat-form-field>
+                <mat-label>Primer Nombre</mat-label>
+                <input matInput formControlName="firstName">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Segundo Nombre</mat-label>
+                <input matInput formControlName="secondName">
+            </mat-form-field>
+        </div>
+        <div class="group-item">
+            <mat-form-field>
+                <mat-label>Primer Apellido</mat-label>
+                <input matInput formControlName="lastName" (focusout)="setUserNameAndPassword()">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Segundo Apellido</mat-label>
+                <input matInput formControlName="secondLastName">
+            </mat-form-field>
+        </div>
+        <div class="group-item">
+            <mat-form-field>
+                <mat-label>Nombre de usuario</mat-label>
+                <input matInput formControlName="username">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password">
+            </mat-form-field>
+        </div>
+        <div class="group-item">
+            <mat-form-field>
+                <mat-label>Correo</mat-label>
+                <input matInput formControlName="email">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Tipo de Usuario</mat-label>
+                <mat-select formControlName="role">
+                    <mat-option *ngFor="let option of userTypeOptions" value="{{option.value}}">
+                        {{ option.viewValue }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="group-button">
+            <button mat-flat-button color="warn" (click)="cancel()">
+                Cancelar
+            </button>
+            <button mat-flat-button color="primary" (click)="save()">
+                {{userId ? 'Editar' : 'Crear'}}
+            </button>
+        </div>
+    </form>
+</div>
