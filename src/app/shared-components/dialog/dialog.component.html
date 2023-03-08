@@ -2,7 +2,7 @@
 <div mat-dialog-content>
   <p>{{ data.content }}</p>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions [align]="'center'">
     <button mat-button [mat-dialog-close]="false" color="warn">
         {{ data.cancelLabel }}
     </button>

@@ -6,7 +6,7 @@
         {{ row[column.columnDef] }}
         <ng-container *ngIf="column.columnDef === 'actions'">
           <ng-container *ngFor="let action of column.actions">
-            <span class="material-icons" (click)="onActionEvent(action, row[action.columnId])">
+            <span class="material-icons actions" (click)="onActionEvent(action, row[action.columnId])">
               {{action.icon}}
             </span>
           </ng-container>

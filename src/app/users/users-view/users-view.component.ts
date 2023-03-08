@@ -8,6 +8,7 @@ import { UserService } from '../../../app/services/users.service';
 import { DialogComponent } from '../../../app/shared-components/dialog/dialog.component';
 import { ViewConfig } from '../../common/view.config';
 import { UserData } from '../user.model';
+import { UsersDetailComponent } from '../users-detail/users-detail.component';
 import { UserViewConfig } from './users-view.config';
 
 @Component({
@@ -53,24 +54,40 @@ export class UsersViewComponent implements OnInit {
   deleteUser(event: DatatableAction) {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: DELETE_DIALOG,
-    });
+    })
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.userService.deleteUser(event.data).subscribe(
           () => this.loadUsers())
       }
-    });
+    })
+  }
+
+  openDetail(event: DatatableAction) {
+    const dialogRef = this.dialog.open(UsersDetailComponent, {
+      data: event.data,
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'delete') {
+        this.deleteUser(event)
+      } else if (result === 'edit') {
+        this.router.navigateByUrl(`/users/save/${event.data}`)        
+      }
+    })
   }
 
   onActionEvent(event: DatatableAction) {
-    console.log(event)    
     switch (event.type) {
       case 'edit':
         this.router.navigateByUrl(`/users/save/${event.data}`)
         break
       case 'delete':
         this.deleteUser(event)
+        break
+      case 'view':
+        this.openDetail(event)
         break
       default:
         break;
