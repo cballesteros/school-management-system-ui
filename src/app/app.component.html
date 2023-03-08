@@ -7,35 +7,15 @@
     <mat-drawer #drawer class="drawer-sidenav" mode="side" [opened]="true">
       <mat-nav-list>
         <div mat-subheader>SAE</div>
-        <mat-list-item>
+        <mat-list-item *ngFor="let menu of drawerMenu" (click)="selectedMenu(menu)">
           <button mat-icon-button matListItemMeta>
             <mat-icon>
               <span class="material-icons-outlined">
-                home
+                {{ menu.icon }}
               </span>
             </mat-icon>
           </button>
-          <a matListItemTitle href="...">Dashboard</a>
-        </mat-list-item>
-        <mat-list-item>
-          <button mat-icon-button matListItemMeta>
-            <mat-icon>
-              <span class="material-icons-outlined">
-                group
-              </span>
-            </mat-icon>
-          </button>
-          <a matListItemTitle href="...">Usuarios</a>
-        </mat-list-item>
-        <mat-list-item>
-          <button mat-icon-button matListItemMeta>
-            <mat-icon>
-              <span class="material-icons-outlined">
-                library_books
-              </span>
-            </mat-icon>
-          </button>
-          <a matListItemTitle href="...">Cursos</a>
+          <a matListItemTitle>{{ menu.label }}</a>
         </mat-list-item>
       </mat-nav-list>
     </mat-drawer>

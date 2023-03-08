@@ -1,9 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Injectable, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Injectable, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject } from 'rxjs';
-import { ViewConfig } from 'src/app/common/view.config';
+import { DatatableAction } from '../../../app/common/constants';
+import { ViewConfig } from '../../../app/common/view.config';
 
 @Injectable()
 export class MyCustomPaginatorIntl implements MatPaginatorIntl {
@@ -35,32 +36,42 @@ export class MyCustomPaginatorIntl implements MatPaginatorIntl {
   styleUrls: ['./datatable.component.sass'],
   providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
 })
-export class DatatableComponent implements AfterViewInit, OnInit {
+export class DatatableComponent implements AfterViewInit, OnInit, OnChanges {
 
   displayedColumns!: string[]
 
+  @Input() searchValue = ''
   @Input() pageSize = 10
   @Input() pageSizeOptions = [10, 25, 50, 100]
   @Input() columnDefinition!: ViewConfig[]
   @Input() dataSource!: MatTableDataSource<any>;
+  @Output() actionEvent = new EventEmitter<DatatableAction>
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private cdr: ChangeDetectorRef) { }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    const valueToSearch = changes['searchValue']?.currentValue
+    if (valueToSearch) {      
+      this.applyFilter(valueToSearch)
+    }
+  }
 
   ngOnInit(): void {
+    this.displayedColumns = this.columnDefinition.map(c => c.columnDef)
     this.cdr.detectChanges();
-    this.displayedColumns = this.columnDefinition.map(c => c.columnDef)    
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;      
+    }, 1000);
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
@@ -70,5 +81,13 @@ export class DatatableComponent implements AfterViewInit, OnInit {
 
   handlePageEvent(e: PageEvent) {
     console.log(e);    
+  }
+
+  onActionEvent(eventData: any, data: any) {
+    const action: DatatableAction = {
+      ...eventData,
+      data
+    }
+    this.actionEvent.emit(action)
   }
 }

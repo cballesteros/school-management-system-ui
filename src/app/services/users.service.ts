@@ -14,12 +14,12 @@ export class UserService {
 
   getAllUsers(): Observable<UserData[]> {
     const url = `${this.apiUrl}/all`;
-    const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3ODE1Nzc1OCwiZXhwIjoxNjc4MjQ0MTU4fQ.4Z7dERDsQ8tWeozHLamRokqnck8-FeAY08RENpc-FlZnigMikw1kR62c6i0unQZWs2nOmqjhr-sWHfrx_inoqw');
+    const headers = new HttpHeaders().set('Authorization', this.getToken());
     return this.http.get<UserData[]>(url, { headers });
   }
 
   getUserData(id: string): Observable<UserData> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${this.apiUrl}?userId=${id}`;
     return this.http.get<UserData>(url);
   }
 
@@ -35,5 +35,9 @@ export class UserService {
   deleteUser(id: string): Observable<{}> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete(url);
+  }
+
+  private getToken(): string {
+    return localStorage.getItem(SMSUI.TOKEN_KEY) ?? ''
   }
 }

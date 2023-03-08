@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UsersSaveComponent } from './users-save/users-save.component';
 import { UsersViewComponent } from './users-view/users-view.component';
 
 const routes: Routes = [
@@ -10,7 +11,15 @@ const routes: Routes = [
   {
     path: 'view',
     component: UsersViewComponent
-  }
+  },
+  {
+    path: 'save',
+    component: UsersSaveComponent
+  },
+  {
+    path: 'save/:userId',
+    component: UsersSaveComponent
+  },
 ];
 
 @NgModule({

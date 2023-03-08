@@ -1,0 +1,16 @@
+<div class="filter-container">
+    <section>
+        <mat-form-field>
+            <mat-label>Tipo de Usuarios</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let user of users" [value]="user.value">
+                {{user.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </section>
+    <mat-form-field>
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" #input>
+    </mat-form-field>
+</div>
