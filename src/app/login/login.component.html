@@ -1,16 +1,30 @@
-<form [formGroup]="loginForm">
-    <mat-form-field class="full-width">
-      <mat-label>Usuario</mat-label>
-      <input matInput formControlName="userCtrl">
-    </mat-form-field>
-    <mat-form-field class="full-width">
-      <mat-label>Contraseña</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" formControlName="passwordCtrl">
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+<div class="container">
+  <div class="mat-elevation-z8 login-form">
+    <h3>Sistema de Administración Escolar</h3>
+    <form [formGroup]="loginForm" *ngIf="loginForm">
+        <mat-form-field class="full-width">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="username">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <div class="error" *ngIf="!success">
+          Usuario y/o contraseña incorrectos
+        </div>
+    </form>
+    <div class="group-button">
+      <button mat-flat-button color="warn">
+          Registrarse
       </button>
-    </mat-form-field>
-    <div class="text-center arbolado-error" *ngIf="!success">
-      Email y/o contraseña incorrectos
+      <button mat-flat-button color="primary" (click)="login()">
+          Iniciar Sesión
+      </button>
     </div>
-</form>
+    <a class="link-button" [routerLink]="'/recovery'">Recuperar contraseña</a>
+  </div>
+</div>

@@ -1,3 +1,5 @@
+import { RoleData } from "./role.model"
+
 export interface DrawerMenu {
   icon: string
   path: string
@@ -57,19 +59,20 @@ export const ID_TYPES_SELECT: SelectValue[] = [
 
 export const USER_TYPES_SELECT: SelectValue[] = [
   {
-    value: 'ADMINISTRATOR',
-    viewValue: 'Administrador'
+    value: RoleData.ADMINISTRATOR,
+    viewValue: 'Administrador',
+    selected: true
   },
   {
-    value: 'TEACHER',
+    value: RoleData.TEACHER,
     viewValue: 'Profesor'
   },
   {
-    value: 'STUDENT',
+    value: RoleData.STUDENT,
     viewValue: 'Estudiante'
   },
   {
-    value: 'ATTENDANT',
+    value: RoleData.ATTENDANT,
     viewValue: 'Acudiente'
   }
 ]

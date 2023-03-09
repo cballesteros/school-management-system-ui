@@ -10,18 +10,20 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
   
-  title = 'Inicio'
+  title?: string
   main = true
   drawerMenu: DrawerMenu[] = MENU_ITEMS
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-    this.main = this.authService.loggedIn
+  async ngOnInit() {
+    this.main = await this.authService.loggedIn()
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.title = MENU_ITEMS.find(
-          item => event.url.includes(item.path))?.label || 'Inicio'
+        this.title = MENU_ITEMS.find(item => event.url.includes(item.path))?.label
+        this.main = this.title ? true : false
+        console.log(this.main);
+        
       }
     })
   }

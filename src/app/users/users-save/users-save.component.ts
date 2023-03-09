@@ -13,6 +13,7 @@ import { merge } from 'lodash';
 })
 export class UsersSaveComponent implements OnInit {
 
+  editMode = false
   userId!: string
   userData!: UserData
   userForm!: FormGroup
@@ -31,9 +32,11 @@ export class UsersSaveComponent implements OnInit {
       this.userId = params['userId']
       if (this.userId) {
         this.userService.getUserData(this.userId).subscribe(data => {
+          this.editMode = true
           this.loadForm(data)
         })
       } else {
+        this.editMode = false
         this.loadForm()
       }
     })
@@ -71,13 +74,17 @@ export class UsersSaveComponent implements OnInit {
   }
 
   setUserNameAndPassword() {
-    const name = this.userForm.get('firstName')?.value
-    const lastName = this.userForm.get('lastName')?.value
-    const idNumber = this.userForm.get('idNumber')?.value
-    const username = `${name}.${lastName}`
-    if (username?.length > 5) {          
-      this.userForm.get('username')?.setValue(username)
-      this.userForm.get('password')?.setValue(`${lastName}${idNumber}`)
+    if (!this.editMode) {      
+      const name = this.userForm.get('firstName')?.value
+      const lastName = this.userForm.get('lastName')?.value
+      const idNumber = this.userForm.get('idNumber')?.value
+      if (name && lastName) {
+        const username = `${name}.${lastName}`
+        this.userForm.get('username')?.setValue(username.toLowerCase())
+      }
+      if (lastName && idNumber) {
+        this.userForm.get('password')?.setValue((`${lastName}${idNumber}`).toLowerCase())
+      }
     }
   }
 
@@ -87,7 +94,7 @@ export class UsersSaveComponent implements OnInit {
 
   save() {
     const user: UserData = merge(this.userData, this.userForm.value)
-    if (this.userId) {
+    if (this.editMode) {
       this.userService.updateUser(user).subscribe(() => {
         this.router.navigateByUrl('/users/view')
       })

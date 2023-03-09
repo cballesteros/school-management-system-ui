@@ -1,0 +1,25 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<ng-container *ngIf="!loading">
+    <h2 mat-dialog-title>
+        {{ getRole(userData.role) }}
+        <p>
+            {{ userData.firstName }} {{ userData.secondName }} {{ userData.lastName }} {{ userData.secondLastName }}
+        </p>
+    </h2>
+    <div mat-dialog-content>
+        <p><b>{{ userData.idType }}</b> {{ userData.idNumber }}</p>
+        <p><b>Usuario:</b> {{ userData.username }}</p>
+        <p><b>Correo:</b> {{ userData.email }}</p>
+    </div>
+    <div mat-dialog-actions [align]="'center'">
+        <button mat-button [mat-dialog-close]="false">
+            Cerrar
+        </button>
+        <button mat-button [mat-dialog-close]="'edit'" color="warn">
+            Editar
+        </button>
+        <button mat-button [mat-dialog-close]="'delete'" color="primary">
+            Eliminar
+        </button>
+    </div>
+</ng-container>

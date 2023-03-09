@@ -13,19 +13,32 @@ export class LoginComponent implements OnInit {
   hide: boolean = true
   success: boolean = true
   loginForm!: FormGroup
-  userCtrl = new FormControl('', Validators.required);
-  passwordCtrl = new FormControl('', Validators.required);
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
-    if (this.authService.loggedIn) {
+  async ngOnInit(): Promise<void> {
+    if (await this.authService.loggedIn()) {
       this.router.navigate(['home'])
+    } else {
+      this.loadForm()
     }
+  }
+  
+  private loadForm() {
     this.loginForm = this.formBuilder.group({
-      userCtrl: this.userCtrl,
-      passwordCtrl: this.passwordCtrl
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
     })
   }
 
+  login() {
+    if (this.loginForm.valid) {
+      this.authService.login({...this.loginForm.value})
+        .then(() => this.router.navigateByUrl('/home'))
+        .catch(() => this.success = false)
+    } else {
+      this.loginForm.get('username')?.markAsTouched()
+      this.loginForm.get('password')?.markAsTouched()
+    }
+  }
 }

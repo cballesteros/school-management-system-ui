@@ -2,7 +2,7 @@
     <section>
         <mat-form-field>
             <mat-label>Tipo de Usuarios</mat-label>
-            <mat-select>
+            <mat-select (selectionChange)="applyFilter($event, 'select')">
               <mat-option *ngFor="let user of users" [value]="user.value">
                 {{user.viewValue}}
               </mat-option>
@@ -11,6 +11,6 @@
     </section>
     <mat-form-field>
         <mat-label>Buscar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" #input>
+        <input matInput (keyup)="applyFilter($event, 'input')" #input>
     </mat-form-field>
 </div>
