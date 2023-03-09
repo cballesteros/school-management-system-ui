@@ -26,12 +26,7 @@
         </button>
         <span>{{ title }}</span>
         <span class="spacer"></span>
-        <button mat-icon-button>
-          <mat-icon>favorite</mat-icon>
-        </button>
-        <button mat-icon-button>
-          <mat-icon>share</mat-icon>
-        </button>
+        <app-user-menu></app-user-menu>
       </mat-toolbar>
       <div class="app-content">
         <router-outlet></router-outlet>

@@ -25,7 +25,7 @@ export class AuthService {
   }  
   
   logout() {  
-    localStorage.removeItem(SMSUI.TOKEN_KEY);  
+    localStorage.removeItem(SMSUI.TOKEN_KEY)
   }  
   
   async loggedIn(): Promise<boolean> {  
