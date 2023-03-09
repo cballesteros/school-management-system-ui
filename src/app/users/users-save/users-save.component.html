@@ -43,7 +43,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Contraseña</mat-label>
-                <input matInput formControlName="password" type="password">
+                <input matInput formControlName="password" type="{{editMode ? 'password' : 'text'}}">
             </mat-form-field>
         </div>
         <div class="group-item">

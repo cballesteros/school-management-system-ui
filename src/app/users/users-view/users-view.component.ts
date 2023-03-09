@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { DELETE_DIALOG } from 'src/app/shared-components/dialog/dialog.constants';
+import { DELETE_DIALOG } from '../../../app/shared-components/dialog/dialog.constants';
 import { DatatableAction } from '../../../app/common/constants';
 import { UserService } from '../../../app/services/users.service';
 import { DialogComponent } from '../../../app/shared-components/dialog/dialog.component';
@@ -10,6 +10,8 @@ import { ViewConfig } from '../../common/view.config';
 import { UserData } from '../user.model';
 import { UsersDetailComponent } from '../users-detail/users-detail.component';
 import { UserViewConfig } from './users-view.config';
+import { SearchData } from '../../../app/common/search.model';
+import { getRole, RoleData } from '../../../app/common/role.model';
 
 @Component({
   selector: 'app-users-view',
@@ -35,16 +37,25 @@ export class UsersViewComponent implements OnInit {
     this.loadUsers()
   }
 
-  private loadUsers() {
+  private loadUsers(role?: RoleData) {
     this.loadingData = true
-    this.userService.getAllUsers().subscribe((users: UserData[]) => {
+    this.userService.getAllUsers(role).subscribe((users: UserData[]) => {
       this.loadingData = false
       this.dataSource = new MatTableDataSource(users);
     })
   }
 
-  onSearch(value: string) {
-    this.searchValue = value
+  onSearch(search: SearchData) {
+    switch (search.type) {
+      case 'input':
+        this.searchValue = search.value        
+        break
+      case 'select':
+        this.loadUsers(getRole(search.value))
+        break
+      default:
+        break
+    }
   }
 
   newUser() {
