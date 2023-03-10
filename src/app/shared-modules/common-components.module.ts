@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatatableComponent } from '../shared-components/datatable/datatable.component';
 import { DialogComponent } from '../shared-components/dialog/dialog.component';
 import { FilterPanelComponent } from '../shared-components/filter-panel/filter-panel.component';
+import { UserMenuComponent } from '../shared-components/user-menu/user-menu.component';
 import { MaterialModule } from './material.module';
 
 @NgModule({
@@ -12,6 +13,7 @@ import { MaterialModule } from './material.module';
     DatatableComponent,
     FilterPanelComponent,
     DialogComponent,
+    UserMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +25,7 @@ import { MaterialModule } from './material.module';
     DatatableComponent,
     FilterPanelComponent,
     DialogComponent,
+    UserMenuComponent,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

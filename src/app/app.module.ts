@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthService } from './services/auth.service';
 import { UsersModule } from './users/users.module';
 import { MaterialModule } from './shared-modules/material.module';
+import { CommonComponentsModule } from './shared-modules/common-components.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MaterialModule } from './shared-modules/material.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    UsersModule
+    UsersModule,
+    CommonComponentsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

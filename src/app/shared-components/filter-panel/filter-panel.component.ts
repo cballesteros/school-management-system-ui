@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { SelectValue, USER_TYPES_SELECT } from 'src/app/common/constants';
+import { FilterConfig } from 'src/app/common/filter.config.model';
 import { SearchData } from 'src/app/common/search.model';
 
 @Component({
@@ -10,13 +11,13 @@ import { SearchData } from 'src/app/common/search.model';
 })
 export class FilterPanelComponent implements OnInit {
 
-  users: SelectValue[] = USER_TYPES_SELECT
+  @Input() fields!: FilterConfig[]
   @Output() searchEvent = new EventEmitter<SearchData>();
 
   constructor() { }
 
   ngOnInit(): void {
-
+    console.log(this.fields)    
   }
 
   applyFilter(event: any, type: 'input' | 'select') {

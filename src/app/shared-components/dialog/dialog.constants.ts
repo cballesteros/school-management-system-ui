@@ -6,3 +6,10 @@ export const DELETE_DIALOG: DialogData = {
     cancelLabel: 'Cancelar',
     okLabel: 'Eliminar'
 }
+
+export const LEVEL_DELETE_DIALOG: DialogData = {
+    title: 'Eliminar Grado',
+    content: '¿Estás seguro que deseas eliminar este grado?',
+    cancelLabel: 'Cancelar',
+    okLabel: 'Eliminar'
+}

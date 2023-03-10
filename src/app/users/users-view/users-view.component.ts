@@ -12,6 +12,8 @@ import { UsersDetailComponent } from '../users-detail/users-detail.component';
 import { UserViewConfig } from './users-view.config';
 import { SearchData } from '../../../app/common/search.model';
 import { getRole, RoleData } from '../../../app/common/role.model';
+import { FilterConfig } from 'src/app/common/filter.config.model';
+import { USER_FILTER_CONFIG } from './users-filter.config';
 
 @Component({
   selector: 'app-users-view',
@@ -22,18 +24,18 @@ export class UsersViewComponent implements OnInit {
 
   loadingData = true
   searchValue!: string
-  columnDefinition: ViewConfig[]
+  userFilterConfig: FilterConfig[] = USER_FILTER_CONFIG
+  columnDefinition: ViewConfig[] = UserViewConfig
   dataSource!: MatTableDataSource<UserData>
 
   constructor(
     private userService: UserService,
     private router: Router,
     public dialog: MatDialog,
-  ) {
-    this.columnDefinition = UserViewConfig
-  }
+  ) { }
   
   ngOnInit(): void {
+    console.log(this.userFilterConfig)    
     this.loadUsers()
   }
 
