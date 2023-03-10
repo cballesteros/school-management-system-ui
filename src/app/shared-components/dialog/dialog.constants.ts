@@ -8,8 +8,8 @@ export const DELETE_DIALOG: DialogData = {
 }
 
 export const LEVEL_DELETE_DIALOG: DialogData = {
-    title: 'Eliminar Usuario',
-    content: '¿Estás seguro que deseas eliminar este usuario?',
+    title: 'Eliminar Grado',
+    content: '¿Estás seguro que deseas eliminar este grado?',
     cancelLabel: 'Cancelar',
     okLabel: 'Eliminar'
 }

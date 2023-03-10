@@ -17,7 +17,7 @@ const routes: Routes = [
     component: LevelsSaveComponent
   },
   {
-    path: 'save/:id',
+    path: 'save/:levelId',
     component: LevelsSaveComponent
   }
 ];

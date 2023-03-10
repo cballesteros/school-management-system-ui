@@ -56,7 +56,7 @@ export class LevelsViewComponent implements OnInit {
   onActionEvent(event: DatatableAction) {
     switch (event.type) {
       case 'edit':
-        this.router.navigateByUrl(`/users/save/${event.data}`)
+        this.router.navigateByUrl(`/levels/save/${event.data}`)
         break
       case 'delete':
         this.deleteGrade(event)
@@ -78,12 +78,12 @@ export class LevelsViewComponent implements OnInit {
       data: LEVEL_DELETE_DIALOG,
     })
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.userService.deleteUser(event.data).subscribe(
-    //       () => this.loadUsers())
-    //   }
-    // })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.levelService.deleteLevel(event.data).subscribe(
+          () => this.loadLevels())
+      }
+    })
   }
 
   openDetail(event: DatatableAction) {

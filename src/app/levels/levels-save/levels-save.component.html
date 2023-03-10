@@ -1,1 +1,24 @@
-<p>levels-save works!</p>
+<div class="container">
+    <mat-progress-bar *ngIf="!levelForm" mode="indeterminate"></mat-progress-bar>
+    <form *ngIf="levelForm" [formGroup]="levelForm">
+        <h2>{{levelId ? 'Editar Grado' : 'Crear Grado'}}</h2>
+        <div class="group-item">
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Descripción</mat-label>
+                <input matInput formControlName="description">
+            </mat-form-field>
+        </div>
+        <div class="group-button">
+            <button mat-flat-button color="warn" (click)="cancel()">
+                Cancelar
+            </button>
+            <button mat-flat-button color="primary" (click)="save()">
+                {{levelId ? 'Editar' : 'Crear'}}
+            </button>
+        </div>
+    </form>
+</div>
