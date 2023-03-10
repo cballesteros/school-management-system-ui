@@ -31,6 +31,8 @@ export class AuthService {
   async loggedIn(): Promise<boolean> {  
     const url = `${this.apiUrl}/valid`
     const token = localStorage.getItem(SMSUI.TOKEN_KEY)
-    return await firstValueFrom(this.http.post<boolean>(url, token?.replace('Bearer ', '')))
+    return await firstValueFrom(
+      this.http.post<boolean>(url, token?.replace('Bearer ', '')),
+      {defaultValue: false})
   }
 }

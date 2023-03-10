@@ -2,10 +2,10 @@
 <ng-container *ngIf="!loadingData">
     <div class="container">
         <app-filter-panel
-            [fields]="userFilterConfig"
+            [fields]="levelFilterConfig"
             (searchEvent)="onSearch($event)"
         ></app-filter-panel>
-        <button mat-flat-button color="primary" (click)="newUser()">Crear usuario</button>
+        <button mat-flat-button color="primary" (click)="newGrade()">Crear grado</button>
     </div>
     <app-datatable
         [searchValue]="searchValue"

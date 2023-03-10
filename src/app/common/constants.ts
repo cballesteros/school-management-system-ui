@@ -36,9 +36,14 @@ export const MENU_ITEMS: DrawerMenu[] = [
         label: 'Usuarios'
       },
       {
+        icon: 'groups',
+        path: 'levels',
+        label: 'Grados'
+      },
+      {
         icon: 'library_books',
         path: 'home',
-        label: 'Cursos'
+        label: 'Materias'
       },
 ]
 
